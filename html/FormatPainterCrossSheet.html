@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="spreadjs culture" content="zh-cn" />
+
+
+    <link href="https://demo.grapecity.com.cn/SpreadJS/cdn/v10/Spread.Sheets.Evaluation.10.3.3/css/gc.spread.sheets.excel2013white.10.3.3.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://demo.grapecity.com.cn/SpreadJS/cdn/v10/Spread.Sheets.Evaluation.10.3.3/scripts/interop/jquery-1.8.2.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="https://demo.grapecity.com.cn/SpreadJS/cdn/v10/Spread.Sheets.Evaluation.10.3.3/scripts/gc.spread.sheets.all.10.3.3.min.js"></script>
+
+    <script type="text/javascript" src="https://sandbox.runjs.cn/uploads/rs/452/1pl5ckwy/license.js"></script>
+</head>
+<body>
+<div class="sample-turtorial">
+    <button id="btnFormat" >格式刷</button>
+    <div id="ss" style="width:100%; height:400px;border: 1px solid gray;"></div>
+</div>
+<img id="brushIcon" src="data:image/png;base64,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" style="position:absolute;z-index:10000; height:20px; display:none">
+
+<script>
+
+    $(function(){
+        var spread = new GC.Spread.Sheets.Workbook(document.getElementById('ss'), { sheetCount: 1 });
+        // get spread object
+        // var spread = GC.Spread.Sheets.findControl(document.getElementById('ss'));
+        var activeSheet = spread.getActiveSheet();
+
+        var border = new GC.Spread.Sheets.LineBorder;
+        border.color = "red";
+        border.style = GC.Spread.Sheets.LineStyle.double;
+        var cell = activeSheet.getCell(1, 1, GC.Spread.Sheets.SheetArea.viewport);
+        cell.borderLeft(border);
+
+        var style = new GC.Spread.Sheets.Style("red");
+        activeSheet.setStyle(2, 2, style, GC.Spread.Sheets.SheetArea.viewport);
+
+        var style2 = new GC.Spread.Sheets.Style("yellow");
+        activeSheet.setStyle(3, 3, style2, GC.Spread.Sheets.SheetArea.viewport);
+
+        //activeSheet.addSpan(1,3,2,2);
+
+        spread.bind(GC.Spread.Sheets.Events.SelectionChanged, function (e, info) {
+            if(isFormatPainting){
+                var sheet = spread.getActiveSheet();
+                resetFormatPainting(sheet);
+                sheet.isPaintSuspended(true);
+                var toRange = sheet.getSelections()[0];
+
+
+                //toRange biger than fromRange
+                if(fromRange.rowCount > toRange.rowCount){
+                    toRange.rowCount = fromRange.rowCount;
+                }
+                if(fromRange.colCount > toRange.colCount){
+                    toRange.colCount = fromRange.colCount;
+                }
+                //toRange must in Sheet
+                if(toRange.row + toRange.rowCount > sheet.getRowCount()){
+                    toRange.rowCount = sheet.getRowCount()- toRange.row;
+                }
+                if(toRange.col + toRange.colCount > sheet.getColumnCount()){
+                    toRange.colCount = sheet.getColumnCount()- toRange.col;
+                }
+
+                var rowStep = fromRange.rowCount, colStep = fromRange.colCount;
+                var endRow = toRange.row + toRange.rowCount - 1, endCol = toRange.col + toRange.colCount - 1;
+
+                // if toRange bigger than fromRange, repeat paint
+                for(var startRow = toRange.row; startRow <= endRow; startRow = startRow + rowStep){
+                    for(var startCol = toRange.col; startCol <= endCol; startCol = startCol + colStep){
+
+                        var rowCount = startRow + rowStep > endRow + 1 ? endRow - startRow + 1 : rowStep;
+                        var colCount = startCol + colStep > endCol + 1 ? endCol - startCol + 1 : colStep;
+                        // sheet.copyTo(fromRange.row,fromRange.col, startRow, startCol, rowCount, colCount,GC.Spread.Sheets.CopyToOptions.style | GC.Spread.Sheets.CopyToOptions.span);
+                        var fromRanges = new GC.Spread.Sheets.Range(fromRange.row, fromRange.col, rowCount, colCount);
+                        var pastedRange = new GC.Spread.Sheets.Range(startRow, startCol, rowCount, colCount);
+                        spread.commandManager().execute({
+                            cmd: "clipboardPaste",
+                            sheetName: sheet.name(),
+                            fromSheet: fromSheet,
+                            fromRanges: [fromRanges],
+                            pastedRanges: [pastedRange],
+                            isCutting: false,
+                            clipboardText: "",
+                            pasteOption: GC.Spread.Sheets.ClipboardPasteOptions.formatting
+                        });
+                    }
+                }
+
+                sheet.isPaintSuspended(false);
+            }
+        });
+
+        var fromRange, fromSheet, isFormatPainting = false;
+
+        $("#btnFormat").click(function(){
+            var sheet = spread.getActiveSheet();
+
+            var selectionRange = sheet.getSelections();
+            if(selectionRange.length > 1){
+                alert("无法对多重选择区域执行此操作");
+                return;
+            }
+
+            if(isFormatPainting){
+                resetFormatPainting(sheet);
+                return;
+            }
+
+            fromRange = selectionRange[0];
+            fromSheet = sheet;
+            isFormatPainting = true;
+
+            $("#btnFormat").text("格式化中");
+        });
+
+        function resetFormatPainting(sheet){
+            isFormatPainting = false;
+            $("#btnFormat").text("格式化");
+        }
+
+        $("body").mousemove(function(e){
+            var e=e?e:window.event;
+            if(!isFormatPainting){
+                $("#brushIcon").hide();
+                return;
+            }
+            var posx=e.pageX;
+            var posy=e.pageY;
+
+            var offset = $("#ss").offset();
+            if(posx> offset.left && posy>offset.top
+                && posx < offset.left + $("#ss").width() && posy < offset.top + $("#ss").height()){
+                var brushIcon = $("#brushIcon");
+                brushIcon.show();
+                brushIcon.css("left", posx+12+"px");
+                brushIcon.css("top", posy+"px");
+            }
+            else{
+                $("#brushIcon").hide();
+            }
+        })
+    });
+</script>
+</body>
+</html>

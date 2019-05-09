@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>练手啦啦啦啦</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    <Link href="../js/gc.spread.sheets.excel2013lightGray.11.2.2.css" rel="stylesheet" type="text/css" />
+    <!-- 11.2.2版本的spreadJs -->
+    <!--  <script src="../js/gc.spread.sheets.all.11.2.2.min.js" type="text/javascript"></script>
+    <script src="../js/gc.spread.sheets.resources.zh.11.2.2.min.js" type="text/javascript"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+    <script src="../js/gc.spread.excelio.11.2.2.min.js" type="text/javascript"></script>
+    <script src="../js/gc.spread.sheets.charts.11.2.2.min.js" type="text/javascript"></script>
+    <script src="../js/gc.spread.sheets.print.11.2.2.min.js" type="text/javascript"></script>
+    <script src="../js/gc.spread.sheets.pdf.11.2.2.min.js" type="text/javascript"></script>
+    <script src="../js/FileSaver.js" type="text/javascript"></script> -->
+
+   <!-- 10.2.0版本的spreadJs -->
+   <script  src="../js/spread10/gc.spread.sheets.all.10.2.0.min.js" type="text/javascript"></script>
+   <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+   <script src="../js/spread10/FileSaver.js" type="text/javascript"></script>
+    <script src="../js/gc.spread.excelio.10.2.0.min.js" type="text/javascript"></script>
+    <script src="../js/spread10/gc.spread.sheets.print.10.2.0.min.js"></script>
+    <script src="../js/IO_FileSaver.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id='setfontstyle' style="display: none; font: 11pt Calibri;"></div>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-danger" id='import'>导入</button>
+        <button type="button" class="btn btn-danger" id='excel'>导出Excel</button>
+        <button type="button" class="btn btn-danger" id='pdf'>导出PDF</button>
+        <button type="button" class="btn btn-danger" id='save'>保存</button>
+        <button type="button" class="btn btn-danger" id='print'>打印</button>
+        <button type="button" class="btn btn-danger" id='search'>查找</button>
+        <button type="button" class="btn btn-danger" id='replace'>替换</button>
+    </div>
+    <p />
+    <div class="btn-group" role="group">
+            
+        <div class="btn-group" role="group" id='myDropdown'>
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+                字体
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li>宋体</li>
+                <li>黑体</li>
+                <li>楷体</li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+                字体
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li>宋体</li>
+                <li>黑体</li>
+                <li>楷体</li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+                字号
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li>12</li>
+                <li>14</li>
+                <li>18</li>
+            </ul>
+        </div>
+        <button type="button" class="btn btn-default" aria-label="Left Align" id='bold'>
+            <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default" aria-label="Left Align" id='italic'>
+            <span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default" aria-label="Left Align" id='textColor'>
+            <span class="glyphicon glyphicon-text-color" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default" aria-label="Left Align" id='textBackground'>
+            <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default" aria-label="Left Align" id='alignLeft'>
+            <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default" aria-label="Left Align" id='alignCenter'>
+            <span class="glyphicon glyphicon-align-center" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default" aria-label="Left Align" id='alignRight'>
+            <span class="glyphicon glyphicon-align-right" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-primary" aria-label="Left Align" id='underline'>
+            下划线
+        </button>
+        <button type="button" class="btn btn-primary" aria-label="Left Align" id='doubleUnderline'>
+            双下划线
+        </button>
+        <button type="button" class="btn btn-primary" aria-label="Left Align" id='lineThrough'>
+            删除线
+        </button>
+        <button type="button" class="btn btn-primary" id='merge'>合并单元格</button>
+        <button type="button" class="btn btn-primary" id='unMerge'>拆分单元格</button>
+        <button type="button" class="btn btn-primary" id='setFont'>字体设置</button>
+        <button type="button" class="btn btn-primary" id='formatter'>百分比</button>
+        <button type="button" class="btn btn-primary" id='before'>左移</button>
+        <button type="button" class="btn btn-primary" id='after'>右移</button>
+        <button type="button" class="btn btn-primary" id='dot'>金额格式化</button>
+        <button type="button" class="btn btn-warning" id='antoEnder'>自动换行</button>
+        <button type="button" class="btn btn-danger" id='tab'>缩进</button>
+        <button type="button" class="btn btn-danger" id='border'>边框</button>
+        <button type="button" class="btn btn-danger" id='present'>%</button>
+    </div>
+    <p />
+    <div id='spreadBody' style='width:100%; height:800px;'></div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+            var spread = new GC.Spread.Sheets.Workbook(document.getElementById("spreadBody"));
+            var sheet = spread.getActiveSheet();
+            var excelIo = new GC.Spread.Excel.IO();
+            var sheetArea = GC.Spread.Sheets.SheetArea.viewport;
+            var style = new GC.Spread.Sheets.Style();
+            var datasource = [
+                { name: 'Alice', age: 1, birthday: 1497590553000, position: 'PM', id: 0 },
+                { name: 'Alice1', age: 4, birthday: 1497604878000, position: 'PM', id: 1 },
+                { name: 'Alice2', age: 8, birthday: 1497605106000, position: 'PM', id: 2 },
+                { name: 'Alice3', age: 7, birthday: 1497605107000, position: 'PM', id: 3 },
+                { name: 'Alice4', age: 45, birthday: 1497605068000, position: 'PM', id: 4 },
+                { name: 'Alice5', age: 63, birthday: 1497605102000, position: 'PM', id: 5 },
+                { name: 'Alice6', age: 52, birthday: 1497605049000, position: 'PM', id: 6 },
+                { name: 'Alice7', age: 27, birthday: 1497605099000, position: 'PM', id: 7 },
+                { name: 'Alice8', age: 83, birthday: 1497605054000, position: 'PM', id: 8 },
+                { name: 'Alice9', age: 48, birthday: 1497605080000, position: 'PM', id: 9 },
+                { name: 'Alice10', age: 45, birthday: 1497605055000, position: 'PM', id: 10 },
+                { name: 'Alice11', age: 242, birthday: 1497605097000, position: 'PM', id: 11 }
+            ];
+            var editBtn = new GC.Spread.Sheets.CellTypes.Button().text('编辑');
+            var colInfo = [
+                { name: 'name', displayName: '姓名', width: 200 },
+                { name: 'age', displayName: 'Age', formatter: '0.00', value: function (row) { return row.age + 2; }, width: 200 },
+                { name: 'birthday', displayName: '生日', formatter: 'yyyy-MM-dd hh:mm:ss', value: function (row) { return new Date(row.birthday); }, width: 200 },
+                { name: 'position', displayName: 'Position', isHideFilter: false, width: 200 },
+                { name: '', displayName: '编辑', isHideFilter: false, cellType: editBtn, width: 200 },
+            ];
+            sheet.autoGenerateColumns = true;
+            sheet.setDataSource(datasource);
+            sheet.bindColumns(colInfo);            
+            // style.backColor = "pink";
+            // sheet.setStyle(0, -1, style, GC.Spread.Sheets.SheetArea.colHeader)
+            // sheet.setStyle(-1, 0, style, GC.Spread.Sheets.SheetArea.rowHeader)
+            // sheet.setStyle( style, GC.Spread.Sheets.SheetArea.corner)
+            initSpread(spread);
+            //初始化表格
+            function initSpread(spread) {
+                GC.Spread.Common.CultureManager.culture("zh-cn");
+                sheet.options.allowCellOverflow = true;
+                // sheet.defaults.colWidth=120;
+                // sheet.defaults.rowHeight=120;
+                sheet.name('Demo');
+            }
+            // 获取选择范围
+            function getActualCellRange(cellRange, rowCount, columnCount) {
+                var spreadNS = GC.Spread.Sheets;
+                if (cellRange.row == -1 && cellRange.col == -1) {
+                    return new spreadNS.Range(0, 0, rowCount, columnCount);
+                } else if (cellRange.row == -1) {
+                    return new spreadNS.Range(0, cellRange.col, rowCount, cellRange.colCount);
+                } else if (cellRange.col == -1) {
+                    return new spreadNS.Range(cellRange.row, 0, cellRange.rowCount, columnCount);
+                }
+
+                return cellRange;
+            }
+            // function getActualCellRange2(sheet, cellRange, rowCount, columnCount) {
+            //     var spreadNS = GC.Spread.Sheets;
+            //     if (cellRange.row === -1 && cellRange.col === -1) {
+            //         return new spreadNS.CellRange(sheet, 0, 0, rowCount, columnCount);
+            //     }
+            //     else if (cellRange.row === -1) {
+            //         return new spreadNS.CellRange(sheet, 0, cellRange.col, rowCount, cellRange.colCount);
+            //     }
+            //     else if (cellRange.col === -1) {
+            //         return new spreadNS.CellRange(sheet, cellRange.row, 0, cellRange.rowCount, columnCount);
+            //     }
+            //     return new spreadNS.CellRange(sheet, cellRange.row, cellRange.col, cellRange.rowCount, cellRange.colCount);
+            // }
+            function setStyleFont(sheet, prop, isLabelStyle, optionValue1, optionValue2) {
+                var styleEle = document.getElementById("setfontstyle"),
+                    selections = sheet.getSelections(),
+                    rowCount = sheet.getRowCount(),
+                    columnCount = sheet.getColumnCount(),
+                    defaultStyle = sheet.getDefaultStyle(),
+                   spreadNS = GC.Spread.Sheets;
+                    console.log('styleEle',styleEle);
+                    console.log(' $(styleEle)', $(styleEle));
+                function updateStyleFont(style) {
+                    if (!style.font) {
+                        style.font = defaultStyle.font || "11pt Calibri";
+                    }
+                    styleEle.style.font = style.font;
+                    var styleFont = $(styleEle).css(prop);
+                    if (styleFont === optionValue1[0] || styleFont === optionValue1[1]) {
+                        if (defaultStyle.font) {
+                            styleEle.style.font = defaultStyle.font;
+                            var defaultFontProp = $(styleEle).css(prop);
+                            styleEle.style.font = style.font;
+                            $(styleEle).css(prop, defaultFontProp);
+                        }
+                        else {
+                            $(styleEle).css(prop, optionValue2);
+                        }
+                    } else {
+                        $(styleEle).css(prop, optionValue1[0]);
+                    }
+                    style.font = styleEle.style.font;
+                }
+
+                sheet.suspendPaint();
+                for (var n = 0; n < selections.length; n++) {
+                    var sel = getActualCellRange(selections[n], rowCount, columnCount);
+                    for (var r = sel.row; r < sel.row + sel.rowCount; r++) {
+                        for (var c = sel.col; c < sel.col + sel.colCount; c++) {
+                            var style = sheet.getStyle(r, c);
+                            if (!style) {
+                                style = new spreadNS.Style();
+                            }
+                            // reset themeFont to make sure font be used
+                            style.themeFont = undefined;
+                            if (isLabelStyle) {
+                                if (!style.labelOptions) {
+                                    style.labelOptions = {};
+                                }
+                                updateStyleFont(style.labelOptions);
+                            } else {
+                                updateStyleFont(style)
+                            }
+                            sheet.setStyle(r, c, style);
+                        }
+                    }
+                }
+                sheet.resumePaint();
+            }
+            //导出Excel
+            $('#excel').click(function () {
+
+            let json = JSON.stringify(spread.toJSON());
+            let fileName = 'demo';
+            excelIo.save(json, function (blob) {
+                saveAs(blob, fileName)
+            }, function (e) {
+                message.warning('导出失败。');
+            })
+                // var fileName = '练手';
+                // var password = '123';
+                // if (fileName.substr(-5, 5) !== '.xlsx') {
+                //     fileName += '.xlsx';
+                // }
+                // var json = spread.toJSON();
+                // // here is excel IO API
+                // excelIo.save(json, function (blob) {
+                //     saveAs(blob, fileName);
+                // }, function (e) {
+                //     // process error
+                //     console.log(e);
+                // }, { password: password });
+            })
+            //导出PDF
+            $('#pdf').click(function () {
+                spread.savePDF(function (blob) {
+                    saveAs(blob, 'download.pdf');
+                }, console.log);
+            })
+            //导入
+            $('#import').click(function () {
+                excelIo.open(excelFile, function (json) {
+                    var workbookObj = json;
+                    workbook.fromJSON(workbookObj);
+                }, function (e) {
+                    // process error
+                    console.log(e);
+                });
+            })
+            //保存
+            $('#save').click(function () {
+
+            })
+            //打印
+            $('#print').click(function () {
+                spread.print();
+            })
+            //查找
+            $('#serch').click(function () {
+
+            })
+            //替换
+            $('#replace').click(function () {
+
+            })
+            
+            //合并单元格 √
+            $('#merge').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.addSpan(sel.row, sel.col, sel.rowCount, sel.colCount);
+                }
+            })
+            //拆分单元格  √
+            $('#unMerge').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            sheet.removeSpan(i + sel.row, j + sel.col);
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+            })
+            //设置字体 √
+            $("#setFont").click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            sheet.getCell(i + sel.row, j + sel.col).font('italic bold 15px/30px Georgia');
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+                // sheet.zoom(0.1);
+                // sheet.addSpan(13, 1, 13, 7);
+                // sheet.setValue(0, 0, "Conditional Format Samples");
+                // sheet.getCell(0, 0).font("24px sans-serif");
+                // sheet.getCell(0, 0).hAlign(spreadNS.HorizontalAlign.center);
+                // sheet.setRowHeight(1, 35);
+                // sheet.getCell(0, 0).text('FontStyle').font('italic bold 15px/30px Georgia');
+                // sheet.getCell(0, 0).text('Forecolor').foreColor('red');
+                // sheet.getCell(0, 0).text('BackColor').backColor('green');
+
+            });
+            //加粗 ×
+            $('#bold').click(function () {
+                var sheet = spread.getActiveSheet();
+                setStyleFont(sheet, "font-weight", false, ["700", "bold"], "normal");
+            });
+            //斜体 ×
+            $('#italic').click(function () {
+                var sheet = spread.getActiveSheet();
+                setStyleFont(sheet, "font-style", false, ["italic"], "normal");
+            })
+            $('dropdownMenu1').click(function(){
+                var sheet = spread.getActiveSheet();
+                setStyleFont(sheet, "font-family", false, ['楷体'], "楷体");
+            })
+            $('dropdownMenu2').click(function(){
+                var sheet = spread.getActiveSheet();
+                setStyleFont(sheet, "font-size", false, [24], 24);
+            })
+            //字体颜色 √
+            $('#textColor').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            //获取字体样式 然后替换
+                            sheet.getCell(i + sel.row, j + sel.col).foreColor('red');
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+            })
+            //背景颜色 √
+            $('#textBackground').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            //获取字体样式 然后替换
+                            sheet.getCell(i + sel.row, j + sel.col).backColor('blue');
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+            })
+            //左对齐 √
+            $('#alignLeft').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            //获取字体样式 然后替换
+                            sheet.getCell(i + sel.row, j + sel.col).hAlign(GC.Spread.Sheets.HorizontalAlign.left);
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+            })
+            //居中对齐 √
+            $('#alignCenter').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+
+                            sheet.getCell(i + sel.row, j + sel.col).hAlign(GC.Spread.Sheets.HorizontalAlign.center);
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+            })
+            //右对齐 √
+            $('#alignRight').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+
+                            sheet.getCell(i + sel.row, j + sel.col).hAlign(GC.Spread.Sheets.HorizontalAlign.right);
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+            })
+            //下划线 √
+            $('#underline').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            sheet.getCell(i + sel.row, j + sel.col).textDecoration(GC.Spread.Sheets.TextDecorationType.underline);
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+            })
+            //双下划线 √
+            $('#doubleUnderline').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            sheet.getCell(i + sel.row, j + sel.col).textDecoration(GC.Spread.Sheets.TextDecorationType.doubleUnderline);
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+            })
+            //删除线 √
+            $('#lineThrough').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            sheet.getCell(i + sel.row, j + sel.col).textDecoration(GC.Spread.Sheets.TextDecorationType.lineThrough);
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+            })
+            //自动换行 √
+            $('#antoEnder').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            sheet.getCell(i + sel.row, j + sel.col).wordWrap(true);
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+            })
+            //缩进 √
+            $('#tab').click(function () {
+            var sheet = spread.getActiveSheet();
+            var sel = sheet.getSelections();
+            if (sel.length > 0) {
+                sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                sheet.suspendPaint();
+                for (var i = 0; i < sel.rowCount; i++) {
+                    for (var j = 0; j < sel.colCount; j++) {
+                        sheet.getCell(i + sel.row, j + sel.col).textIndent(1);
+                        sheet.getCell(4, 10).text('Indent').textIndent(3);
+                        sheet.getCell(6, 10).text('Indent').textIndent(-2);
+                    }
+                }
+                sheet.resumePaint();
+            }
+
+        })
+
+            $('#border').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    sheet.suspendPaint();
+                    var lineStyle = GC.Spread.Sheets.LineStyle.dotted;
+                    var lineBorder = new GC.Spread.Sheets.LineBorder('red', lineStyle);
+                    var sheetArea = GC.Spread.Sheets.SheetArea.viewport;
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            sheet.getCell(i + sel.row, j + sel.col).setBorder(lineBorder, { left:true,right: true}, sheetArea);
+                            // sheet.getCell(i + sel.row, j + sel.col).setBorder(lineBorder, { top: true}, sheetArea);
+                            // sheet.getCell(i + sel.row, j + sel.col).diagonalDown(new GC.Spread.Sheets.LineBorder("blue", GC.Spread.Sheets.LineStyle.thick)); // 右斜线
+                            // sheet.getCell(i + sel.row, j + sel.col).diagonalDown(new GC.Spread.Sheets.LineBorder("green" ,GC.Spread.Sheets.LineStyle.double));//双 右斜线
+                            // sheet.getCell(i + sel.row, j + sel.col).borderBottom(new GC.Spread.Sheets.LineBorder("#6495ED", GC.Spread.Sheets.LineStyle.dotted));//虚线
+                            sheet.getCell(i + sel.row, j + sel.col).borderTop(new GC.Spread.Sheets.LineBorder("#A52A2A", GC.Spread.Sheets.LineStyle.mediumDashed));
+                            // sheet.getCell(i + sel.row, j + sel.col).borderLeft(new GC.Spread.Sheets.LineBorder("#FF02FF", GC.Spread.Sheets.LineStyle.medium));
+                            // sheet.getCell(i + sel.row, j + sel.col).borderRight(new GC.Spread.Sheets.LineBorder("#5F9EA0", GC.Spread.Sheets.LineStyle.dashDot));
+                            // sheet.getCell(i + sel.row, j + sel.col).borderBottom(new GC.Spread.Sheets.LineBorder("#FFE4C4", GC.Spread.Sheets.LineStyle.thin));
+                            
+                        }
+                    }
+                    sheet.resumePaint();
+                }
+                // var cell = sheet.getCell(1, 1);
+                // cell.diagonalDown(new GC.Spread.Sheets.LineBorder("blue", GC.Spread.Sheets.LineStyle.thick));
+                // cell = sheet.getCell(1, 3);
+                // cell.diagonalDown(new GC.Spread.Sheets.LineBorder("green", GC.Spread.Sheets.LineStyle.double));
+                // cell.diagonalUp(new GC.Spread.Sheets.LineBorder("yellow", GC.Spread.Sheets.LineStyle.double));
+            })
+            //百分比 √
+            $('#formatter').click(function () {
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            sheet.setFormatter(i + sel.row, j + sel.col, '0%')
+                            // sheet.setFormatter(2, 1, '0%')
+                            // sheet.setFormatter(3, 1, '#%%')
+                        }
+                    }
+                }
+            })
+            //加零
+            $('#before').click(function () {
+                // sheet.setFormatter(2, 1, '_($* #,##0.00_);_($* (#,##0.00);_($* "-"??_);_(@_)'); //添加$符号
+                increaseDecimal()
+            })
+            //去零
+            $('#after').click(function () {
+                decreaseDecimal()
+            })
+            // Increase Decimal related items
+            function increaseDecimal() {
+                var sheet = spread.getActiveSheet();
+                var spreadNS = GC.Spread.Sheets;
+                execInSelections(sheet, "formatter", function (sheet, row, column) {
+                    var style = sheet.getStyle(row, column);
+                    if (!style) {
+                        style = new spreadNS.Style();
+                    }
+                    var activeCell = sheet.getCell(sheet.getActiveRowIndex(), sheet.getActiveColumnIndex());
+                    var activeCellValue = activeCell.value();
+                    var activeCellFormatter = activeCell.formatter();
+                    var activeCellText = activeCell.text();
+
+                    if (activeCellValue) {
+                        var formatString = null;
+                        var zero = "0";
+                        var numberSign = "#";
+                        var decimalPoint = ".";
+                        var zeroPointZero = "0" + decimalPoint + "0";
+
+                        var scientificNotationCheckingFormatter = getScientificNotationCheckingFormattter(activeCellFormatter);
+                        if (!activeCellFormatter || ((activeCellFormatter == "General" || (scientificNotationCheckingFormatter &&
+                            (scientificNotationCheckingFormatter.indexOf("E") >= 0 || scientificNotationCheckingFormatter.indexOf('e') >= 0))))) {
+                            if (!isNaN(activeCellValue)) {
+                                var result = activeCellText.split('.');
+                                if (result.length == 1) {
+                                    if (result[0].indexOf('E') >= 0 || result[0].indexOf('e') >= 0)
+                                        formatString = zeroPointZero + "E+00";
+                                    else
+                                        formatString = zeroPointZero;
+                                }
+                                else if (result.length == 2) {
+                                    result[0] = "0";
+                                    var isScience = false;
+                                    var sb = "";
+                                    for (var i = 0; i < result[1].length + 1; i++) {
+                                        sb = sb + '0';
+                                        if (i < result[1].length && (result[1].charAt(i) == 'e' || result[1].charAt(i) == 'E')) {
+                                            isScience = true;
+                                            break;
+                                        }
+                                    }
+                                    if (isScience)
+                                        sb = sb + "E+00";
+                                    if (sb) {
+                                        result[1] = sb.toString();
+                                        formatString = result[0] + decimalPoint + result[1];
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            formatString = activeCellFormatter;
+                            if (formatString) {
+                                var formatters = formatString.split(';');
+                                for (var i = 0; i < formatters.length && i < 2; i++) {
+                                    if (formatters[i] && formatters[i].indexOf("/") < 0 && formatters[i].indexOf(":") < 0 && formatters[i].indexOf("?") < 0) {
+                                        var indexOfDecimalPoint = formatters[i].lastIndexOf(decimalPoint);
+                                        if (indexOfDecimalPoint != -1) {
+                                            formatters[i] = formatters[i].slice(0, indexOfDecimalPoint + 1) + zero + formatters[i].slice(indexOfDecimalPoint + 1);
+                                        }
+                                        else {
+                                            var indexOfZero = formatters[i].lastIndexOf(zero);
+                                            var indexOfNumberSign = formatters[i].lastIndexOf(numberSign);
+                                            var insertIndex = indexOfZero > indexOfNumberSign ? indexOfZero : indexOfNumberSign;
+                                            if (insertIndex >= 0)
+                                                formatters[i] = formatters[i].slice(0, insertIndex + 1) + decimalPoint + zero + formatters[i].slice(insertIndex + 1);
+                                        }
+                                    }
+                                }
+                                formatString = formatters.join(";");
+                            }
+                        }
+                        style.formatter = formatString;
+                        sheet.setStyle(row, column, style);
+                    }
+                });
+            }
+            // Decrease Decimal related items
+            function decreaseDecimal() {
+                var sheet = spread.getActiveSheet();
+                var spreadNS = GC.Spread.Sheets;
+                execInSelections(sheet, "formatter", function (sheet, row, column) {
+                    var style = sheet.getStyle(row, column);
+                    if (!style) {
+                        style = new spreadNS.Style();
+                    }
+                    var activeCell = sheet.getCell(sheet.getActiveRowIndex(), sheet.getActiveColumnIndex());
+                    var activeCellValue = activeCell.value();
+                    var activeCellFormatter = activeCell.formatter();
+                    var activeCellText = activeCell.text();
+                    var decimalPoint = ".";
+                    if (activeCellValue) {
+                        var formatString = null;
+                        if (!activeCellFormatter || activeCellFormatter == "General") {
+                            if (!isNaN(activeCellValue)) {
+                                var result = activeCellText.split('.');
+                                if (result.length == 2) {
+                                    result[0] = "0";
+                                    var isScience = false;
+                                    var sb = "";
+                                    for (var i = 0; i < result[1].length - 1; i++) {
+                                        if ((i + 1 < result[1].length) && (result[1].charAt(i + 1) == 'e' || result[1].charAt(i + 1) == 'E')) {
+                                            isScience = true;
+                                            break;
+                                        }
+                                        sb = sb + ('0');
+                                    }
+
+                                    if (isScience)
+                                        sb = sb + ("E+00");
+
+                                    if (sb !== null) {
+                                        result[1] = sb.toString();
+
+                                        formatString = result[0] + (result[1] !== "" ? decimalPoint + result[1] : "");
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            formatString = activeCellFormatter;
+                            if (formatString) {
+                                var formatters = formatString.split(';');
+                                for (var i = 0; i < formatters.length && i < 2; i++) {
+                                    if (formatters[i] && formatters[i].indexOf("/") < 0 && formatters[i].indexOf(":") < 0 && formatters[i].indexOf("?") < 0) {
+                                        var indexOfDecimalPoint = formatters[i].lastIndexOf(decimalPoint);
+                                        if (indexOfDecimalPoint != -1 && indexOfDecimalPoint + 1 < formatters[i].length) {
+                                            formatters[i] = formatters[i].slice(0, indexOfDecimalPoint + 1) + formatters[i].slice(indexOfDecimalPoint + 2);
+                                            var tempString = indexOfDecimalPoint + 1 < formatters[i].length ? formatters[i].substr(indexOfDecimalPoint + 1, 1) : "";
+                                            if (tempString === "" || tempString !== "0")
+                                                formatters[i] = formatters[i].slice(0, indexOfDecimalPoint) + formatters[i].slice(indexOfDecimalPoint + 1);
+                                        }
+                                        else {
+                                            //do nothing.
+                                        }
+                                    }
+                                }
+                                formatString = formatters.join(";");
+                            }
+                        }
+                        style.formatter = formatString;
+                        sheet.setStyle(row, column, style);
+                    }
+                });
+            }
+            // Decrease Decimal related items (end)
+            //逗号
+            $('#dot').click(function(){
+                var sheet = spread.getActiveSheet();
+                var sel = sheet.getSelections();
+                if (sel.length > 0) {
+                    sel = getActualCellRange(sel[sel.length - 1], sheet.getRowCount(), sheet.getColumnCount());
+                    for (var i = 0; i < sel.rowCount; i++) {
+                        for (var j = 0; j < sel.colCount; j++) {
+                            sheet.getCell(i + sel.row, j + sel.col) .formatter("#,##0.00");
+                        }
+                    }
+                }
+            })
+        
+        })
+    function execInSelections(sheet, styleProperty, func) {
+        var selections = sheet.getSelections();
+        for (var k = 0; k < selections.length; k++) {
+            var selection = selections[k];
+            var col = selection.col, row = selection.row,
+                rowCount = selection.rowCount, colCount = selection.colCount;
+            if ((col === -1 || row === -1) && styleProperty) {
+                var style, r, c;
+                // whole sheet was selected, need set row / column' style one by one
+                if (col === -1 && row === -1) {
+                    for (r = 0; r < rowCount; r++) {
+                        if ((style = sheet.getStyle(r, -1)) && style[styleProperty] !== undefined) {
+                            func(sheet, r, -1);
+                        }
+                    }
+                    for (c = 0; c < colCount; c++) {
+                        if ((style = sheet.getStyle(-1, c)) && style[styleProperty] !== undefined) {
+                            func(sheet, -1, c);
+                        }
+                    }
+                }
+                // Get actual range for whole rows / columns / sheet selection
+                if (col === -1) {
+                    col = 0;
+                }
+                if (row === -1) {
+                    row = 0;
+                }
+                // set to each cell with style that in the adjusted selection range
+                for (var i = 0; i < rowCount; i++) {
+                    r = row + i;
+                    for (var j = 0; j < colCount; j++) {
+                        c = col + j;
+                        if ((style = sheet.getStyle(r, c)) && style[styleProperty] !== undefined) {
+                            func(sheet, r, c);
+                        }
+                    }
+                }
+            }
+            if (selection.col == -1 && selection.row == -1) {
+                func(sheet, -1, -1);
+            }
+            else if (selection.row == -1) {
+                for (var i = 0; i < selection.colCount; i++) {
+                    func(sheet, -1, selection.col + i);
+                }
+            }
+            else if (selection.col == -1) {
+                for (var i = 0; i < selection.rowCount; i++) {
+                    func(sheet, selection.row + i, -1);
+                }
+            }
+            else {
+                for (var i = 0; i < selection.rowCount; i++) {
+                    for (var j = 0; j < selection.colCount; j++) {
+                        func(sheet, selection.row + i, selection.col + j);
+                    }
+                }
+            }
+        }
+    }
+    //This method is used to get the formatter which not include the string and color
+    //in order to not misleading with the charactor 'e' / 'E' in scientific notation.
+    function getScientificNotationCheckingFormattter(formatter) {
+        if (!formatter) {
+            return formatter;
+        }
+        var i;
+        var signalQuoteSubStrings = getSubStrings(formatter, '\'', '\'');
+        for (i = 0; i < signalQuoteSubStrings.length; i++) {
+            formatter = formatter.replace(signalQuoteSubStrings[i], '');
+        }
+        var doubleQuoteSubStrings = getSubStrings(formatter, '\"', '\"');
+        for (i = 0; i < doubleQuoteSubStrings.length; i++) {
+            formatter = formatter.replace(doubleQuoteSubStrings[i], '');
+        }
+        var colorStrings = getSubStrings(formatter, '[', ']');
+        for (i = 0; i < colorStrings.length; i++) {
+            formatter = formatter.replace(colorStrings[i], '');
+        }
+        return formatter;
+    }
+    function getSubStrings(source, beginChar, endChar) {
+        if (!source) {
+            return [];
+        }
+        var subStrings = [], tempSubString = '', inSubString = false;
+        for (var index = 0; index < source.length; index++) {
+            if (!inSubString && source[index] === beginChar) {
+                inSubString = true;
+                tempSubString = source[index];
+                continue;
+            }
+            if (inSubString) {
+                tempSubString += source[index];
+                if (source[index] === endChar) {
+                    subStrings.push(tempSubString);
+                    tempSubString = "";
+                    inSubString = false;
+                }
+            }
+        }
+        return subStrings;
+    }
+    $("#myDropdown").on("show.bs.dropdown", function () {
+            console.log("Opening dropdown..");
+        });
+        
+        $("#myDropdown").on("shown.bs.dropdown", function () {
+            console.log("Dropdown opened..");
+        });
+        
+        $("#myDropdown").on("hide.bs.dropdown", function () {
+            console.log("Hiding dropdown..");
+        });
+        
+        $("#myDropdown").on("hidden.bs.dropdown", function () {
+            console.log("Dropdown hidden..");
+        });
+</script>
+
+</html>

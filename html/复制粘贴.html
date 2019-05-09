@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta name="spreadjs culture" content="zh-cn" />
+		<link href="css/gc.spread.sheets.11.1.4.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+		<script src="http://demo.gcpowertools.com.cn/SpreadJS/cdn/v11/Spread.Sheets.Release.11.0.0/scripts/interop/jquery-1.8.2.min.js" type="text/javascript"></script>
+
+
+		<script type="text/javascript" src="js/gc.spread.sheets.all.11.1.4.min.js"></script>
+		<script type="text/javascript" src="js/gc.spread.excelio.11.1.4.min.js"></script>
+		<script type="text/javascript" src="js/gc.spread.sheets.print.11.1.4.min.js"></script>
+		<script type="text/javascript" src="js/FileSaver.js"></script>
+		
+	</head>
+	<body>
+        <div id='ss' style='width:100%; height:400px;'></div>
+		<input id="copy" type="button" value="copy" />
+		<input id="paste" type="button" value="paste" />
+   </body>
+   
+</html>
+<script type="text/javascript">
+	$(document).ready(function () {
+		var spread = new GC.Spread.Sheets.Workbook(document.getElementById("ss"));
+		var sheet = spread.getActiveSheet();
+		
+		$("#copy").click(function(){
+			spread.commandManager().execute({cmd:"copy",sheetName:sheet.name()});
+		});
+		
+		$("#paste").click(function(){
+			spread.commandManager().execute({cmd:"paste",sheetName:sheet.name()});
+		});
+		
+		
+		
+	});
+</script>

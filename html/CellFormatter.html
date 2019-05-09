@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <!-- disable IE compatible view -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="spreadjs culture" content="zh-cn" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" , user-scalable=no" />
+    <title>SpreadJS Demo : 单元格格式</title>
+
+    <!-- CDN Reference     -->
+    <link rel="icon" type="image/png" href="https://demo.grapecity.com.cn/SpreadJS/TutorialSample/icon.ico" />
+    <link rel=" stylesheet" type="text/css" href="https://cdn.grapecity.com.cn/spreadjs/css/basscss.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.grapecity.com.cn/spreadjs/css/gc.spread.sheets.excel2013white.12.0.6.css" />
+    <script type="text/javascript" src="https://cdn.grapecity.com.cn/spreadjs/scripts/gc.spread.sheets.all.12.0.6.min.js"></script>
+    <script type="text/javascript" src="https://cdn.grapecity.com.cn/spreadjs/scripts/resources/zh/gc.spread.sheets.resources.zh.12.0.6.min.js"></script>
+    <script type="text/javascript" src="https://cdn.grapecity.com.cn/spreadjs/scripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://demo.grapecity.com.cn/SpreadJS/TutorialSample/js/spread/license.js"></script>
+
+
+
+    <!-- Local Reference
+    <link rel="icon" type="image/png" href="images/icon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/basscss.min.css ">
+    <link rel="stylesheet" type="text/css" href=" css/gc.spread.sheets.excel2013white.12.0.6.css">
+    <script type="text/javascript" src="scripts/gc.spread.sheets.all.12.0.6.min.js"></script>
+    <script type="text/javascript" src="/scripts/gc.spread.sheets.resources.zh.12.0.6.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://demo.grapecity.com.cn/SpreadJS/TutorialSample/js/spread/license.js"></script>
+-->
+    <!-- 页面内自定义 CSS-->
+    <style>
+        body {
+        background: rgb(250, 250, 250);
+        color: #333;
+      }
+
+      #ss {
+          border: 1px #ccc solid;
+      }
+
+      .container {
+        width: 80%;
+        background: rgb(250, 250, 250);
+        margin: 0 auto;
+        height: 600px;
+      }
+
+      .full-height {
+        height: 100%;
+      }
+        .left{
+            height: 100%;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="clearfix border-bottom">
+            <div class="col col-8">
+                <h3>SpreadJS Demo : 单元格格式</h3>
+            </div>
+            <div class="col col-4 right-align align-middle">
+                <h5>
+                    <ul class="list-reset">
+                        <li class="inline-block mr1"><a class="btn" href="https://www.grapecity.com.cn/developer/spreadjs "
+                                target="_blank ">产品官网</a></li>
+                        <li class="inline-block mr1"><a class="" href="https://gcdn.grapecity.com.cn/showforum-185-1.html "
+                                target="_blank ">论坛求助</a></li>
+                        <li class="inline-block mr1"><a class="" href="https://demo.grapecity.com.cn/SpreadJS/TutorialSample/#/samples "
+                                target="_blank ">更多示例</a></li>
+                    </ul>
+                </h5>
+            </div>
+        </div>
+
+        <div class="full-height clearfix mt2">
+            <div class="col col-4 left">
+                <h4 class="mb0">单元格格式基本应用</h4>
+                <p  style="width: 90%"class="m0 ">说明：
+                </p>
+                <label>输入日期时间：</label> <br/>
+                <input type="text" id="format_text" value="2011/9/2 10:08:25" />
+                <input type="button" value="设置格式" id="btnSetFormat" />
+               <br/> <label>输入数字：</label><br/> 
+                <input type="text" id="format_text_num" value="120123.345345234" />
+                <input type="button" value="设置格式" id="btnSetFormat1" />
+
+                <h4 class="mb0">自定义格式</h4>
+                <p  style="width: 90%"class="m0 ">说明：右侧名为自定义格式的表单，余额一列加入了自定义格式，根据余额大小设置了不同颜色
+                </p>
+                <h4 class="mb0">帐单格式</h4>
+                <p  style="width: 90%"class="m0 ">说明：右侧名为账单格式的表单中展示了一系列会计专用格式
+                </p>
+                </div>
+            <div class="col col-8 full-height ">
+                <div id="ss" style="height:780px"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript ">
+    var spreadNS = GC.Spread.Sheets;
+    $(document).ready(function () {
+        var spread = new GC.Spread.Sheets.Workbook(document.getElementById("ss"));
+        var sheet = spread.getActiveSheet();
+        var spreadNS = GC.Spread.Sheets;
+        // var generalFormat = new GC.Spread.Formatter.GeneralFormatter(
+        //     '[Red]+0.00;[Green]-0.00;[Yellow]0;[Blue]@');
+        // var cell = sheet.getCell(0, 0);
+        // cell.formatter(generalFormat);
+        // 单元格常用日期格式
+        sheet.setArray(0,1,[
+        "yyyy/M/d",
+        "yy/MM/dd",
+        "yy/MM/dd H:mm",
+        "yy/MM/dd HH:mm tt",
+        "h:mm:ss",
+        "MMM-yy",
+        " ",
+        " ",
+        '# ?/?',
+        '[DBNum2][$-411]General',
+        '0',
+        '0.00',
+        '#,##0.00',
+        '￥#,##0.00',
+
+        ]);
+        sheet.setColumnWidth(0,10);
+        sheet.setColumnWidth(1,180);
+        sheet.setColumnWidth(2,150);
+        sheet.setFormatter(0,2,'yyyy/M/d');
+        sheet.setFormatter(1,2,'yy/MM/dd');
+        sheet.setFormatter(2,2,'yy/MM/dd H:mm');
+        sheet.setFormatter(3,2,'yy/MM/dd HH:mm tt');
+        sheet.setFormatter(4,2,'h:mm:ss');
+        sheet.setFormatter(5,2,'MMM-yy');
+
+        sheet.setFormatter(8,2,'# ?/?');
+        sheet.setFormatter(9,2,'[DBNum2][$-411]General');
+        sheet.setFormatter(10,2,'0');
+        sheet.setFormatter(11,2,'0.00');
+        sheet.setFormatter(12,2,'#,##0.00');
+        sheet.setFormatter(13,2,'￥#,##0.00');
+        document.getElementById("btnSetFormat").addEventListener('click',function () {
+                var sheet = spread.getActiveSheet();
+                var val =document.getElementById("format_text").value;
+               sheet.setValue(0,2,val);
+               sheet.setValue(1,2,val);
+               sheet.setValue(2,2,val);
+               sheet.setValue(3,2,val);
+               sheet.setValue(4,2,val);
+               sheet.setValue(5,2,val);
+            });
+            document.getElementById("btnSetFormat1").addEventListener('click',function () {
+                var sheet = spread.getActiveSheet();
+                var val =document.getElementById("format_text_num").value;
+               sheet.setValue(8,2,val);
+               sheet.setValue(9,2,val);
+               sheet.setValue(10,2,val);
+               sheet.setValue(11,2,val);
+               sheet.setValue(12,2,val);
+               sheet.setValue(13,2,val);
+            });
+            sheet.getCell(0, 1, spreadNS.SheetArea.colHeader).value("格式");
+            sheet.getCell(0, 2, spreadNS.SheetArea.colHeader).value("展示效果");
+
+            /*-------------------自定义格式-----------------*/
+             var patlist = [{"PATIENT_ID":"932418","VISIT_ID":"1","INP_NO":"170705","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"张茂堃","SEX":"男","BED_NO":1,"BED_LABEL":"1","DATE_OF_BIRTH":"1991-12-10 00:00:00","NURSE_LEVEL":"3","NURSE_LEVEL_NAME":"三级护理","STATUS":"2","STATUS_NAME":"病重","CHARGE_TYPE":"军队医改","ADMISSION_DATE":"2017-10-30 14:25:43","DEPTED_TIME":"2017-10-30 11:56:48","DIAGNOSIS":"低效型呼吸","NURSE_IN_CHARGE":"张瑞娟","NURSE_NAME":"测试","DOCTOR_IN_CHARGE":"901101","DOCTOR_NAME":"于振声","MEAL":"葡萄糖耐量","ALLERGY":"蛋糕","ADDRESS":"武警河南安阳市支队","BALANCE":123,"PHONE":"15145322231","BLOOD_TYPE":"O","MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":"0","CURRENT_TEMP":"38","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"25岁"},{"PATIENT_ID":"1118950","VISIT_ID":"2","INP_NO":"170241","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"安巧侠","SEX":"女","BED_NO":2,"BED_LABEL":"2","DATE_OF_BIRTH":"1963-07-14 00:00:00","NURSE_LEVEL":"2","NURSE_LEVEL_NAME":"二级护理","STATUS":"3","STATUS_NAME":"一般","CHARGE_TYPE":"非直补","ADMISSION_DATE":"2017-10-10 09:24:34","DEPTED_TIME":"2017-10-10 09:39:57","DIAGNOSIS":"锁骨骨折，不能活动","NURSE_IN_CHARGE":"穆东","NURSE_NAME":"护士名称","DOCTOR_IN_CHARGE":"吴巍","DOCTOR_NAME":"医生名称","MEAL":"流食","ALLERGY":"阿莫西林","ADDRESS":"许昌艾庄乡大牛村","BALANCE":1268.49,"PHONE":"18947259043","BLOOD_TYPE":"AB","MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":"0","CURRENT_TEMP":"不升","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"54岁"},{"PATIENT_ID":"371794","VISIT_ID":"2","INP_NO":"158767","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"张淑桂","SEX":"女","BED_NO":3,"BED_LABEL":"3","DATE_OF_BIRTH":"1934-05-19 00:00:00","NURSE_LEVEL":"3","NURSE_LEVEL_NAME":"三级护理","STATUS":"2","STATUS_NAME":"病重","CHARGE_TYPE":"省医保","ADMISSION_DATE":"2017-11-12 12:48:54","DEPTED_TIME":"2017-11-12 12:53:49","DIAGNOSIS":"腰部骨折","NURSE_IN_CHARGE":"张晓","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"周涛","DOCTOR_NAME":null,"MEAL":"半流食","ALLERGY":"花粉","ADDRESS":"兴华北街12号院7号楼","BALANCE":-1351.2,"PHONE":"029-888888","BLOOD_TYPE":"B","MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":"0","CURRENT_TEMP":"37","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"83岁"},{"PATIENT_ID":"808357","VISIT_ID":"1","INP_NO":"169958","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"丁玉琴","SEX":"女","BED_NO":4,"BED_LABEL":"4","DATE_OF_BIRTH":"1957-05-19 00:00:00","NURSE_LEVEL":"3","NURSE_LEVEL_NAME":"三级护理","STATUS":"3","STATUS_NAME":"一般","CHARGE_TYPE":"市医保","ADMISSION_DATE":"2017-10-18 09:49:38","DEPTED_TIME":"2017-10-18 10:04:56","DIAGNOSIS":"肱骨外科颈骨折","NURSE_IN_CHARGE":"李娜娜","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"周涛","DOCTOR_NAME":null,"MEAL":"稀饭","ALLERGY":"花粉","ADDRESS":"庆丰街59号院","BALANCE":-11310.73,"PHONE":"029-8888222","BLOOD_TYPE":"A","MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":"0","CURRENT_TEMP":"36.8","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"60岁"},{"PATIENT_ID":"1084096","VISIT_ID":"1","INP_NO":"170916","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"李桂兰","SEX":"女","BED_NO":5,"BED_LABEL":"5","DATE_OF_BIRTH":"1930-05-14 00:00:00","NURSE_LEVEL":"3","NURSE_LEVEL_NAME":"三级护理","STATUS":"3","STATUS_NAME":"一般","CHARGE_TYPE":"铁路医保","ADMISSION_DATE":"2017-11-09 17:48:26","DEPTED_TIME":"2017-11-09 17:49:03","DIAGNOSIS":"活动无耐力","NURSE_IN_CHARGE":"赵玲","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"周涛","DOCTOR_NAME":null,"MEAL":null,"ALLERGY":null,"ADDRESS":"邙山区古荥镇孙庄","BALANCE":-921.82,"PHONE":"029-888111","BLOOD_TYPE":"AB","MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":"0","CURRENT_TEMP":"","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"87岁"},{"PATIENT_ID":"1003702","VISIT_ID":"4","INP_NO":"164214","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"李国旗","SEX":"男","BED_NO":17,"BED_LABEL":"17","DATE_OF_BIRTH":"1955-07-04 00:00:00","NURSE_LEVEL":"0","NURSE_LEVEL_NAME":"特级护理","STATUS":"1","STATUS_NAME":"病危","CHARGE_TYPE":"自费","ADMISSION_DATE":"2017-11-13 10:27:49","DEPTED_TIME":"2017-11-13 10:40:51","DIAGNOSIS":"局部肿胀","NURSE_IN_CHARGE":"赵玲","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"秦耀","DOCTOR_NAME":null,"MEAL":null,"ALLERGY":null,"ADDRESS":"南阳路258号","BALANCE":796.9,"PHONE":null,"BLOOD_TYPE":null,"MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":"0","CURRENT_TEMP":"","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"62岁"},{"PATIENT_ID":"079598","VISIT_ID":"3","INP_NO":"171036","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"杨秀英","SEX":"女","BED_NO":19,"BED_LABEL":"19","DATE_OF_BIRTH":"1934-09-04 00:00:00","NURSE_LEVEL":"1","NURSE_LEVEL_NAME":"一级护理","STATUS":"3","STATUS_NAME":"一般","CHARGE_TYPE":"非直补","ADMISSION_DATE":"2017-11-13 16:03:51","DEPTED_TIME":"2017-11-13 16:10:22","DIAGNOSIS":"肱骨髁上骨折","NURSE_IN_CHARGE":"穆东","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"吴巍","DOCTOR_NAME":null,"MEAL":null,"ALLERGY":null,"ADDRESS":"西华县逍遥镇","BALANCE":5403.11,"PHONE":null,"BLOOD_TYPE":null,"MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":"0","CURRENT_TEMP":"36.5","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"83岁"},{"PATIENT_ID":"001915","VISIT_ID":"5","INP_NO":"96777","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"陈米领","SEX":"男","BED_NO":26,"BED_LABEL":"26","DATE_OF_BIRTH":"1956-01-16 00:00:00","NURSE_LEVEL":"1","NURSE_LEVEL_NAME":"一级护理","STATUS":"3","STATUS_NAME":"一般","CHARGE_TYPE":"自费","ADMISSION_DATE":"2017-11-13 08:48:43","DEPTED_TIME":"2017-11-13 08:52:55","DIAGNOSIS":"肱骨大结节骨折","NURSE_IN_CHARGE":"张晓","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"于振声","DOCTOR_NAME":null,"MEAL":null,"ALLERGY":null,"ADDRESS":"义马跃进矿","BALANCE":-7508.21,"PHONE":null,"BLOOD_TYPE":null,"MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":"0","CURRENT_TEMP":"36.8","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"61岁"},{"PATIENT_ID":"1082303","VISIT_ID":"1","INP_NO":"169811","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"张维强","SEX":"男","BED_NO":27,"BED_LABEL":"27","DATE_OF_BIRTH":"1959-02-09 00:00:00","NURSE_LEVEL":"3","NURSE_LEVEL_NAME":"三级护理","STATUS":"3","STATUS_NAME":"一般","CHARGE_TYPE":"省医保","ADMISSION_DATE":"2017-10-06 12:27:12","DEPTED_TIME":"2017-10-06 12:47:07","DIAGNOSIS":"创伤性休克 ","NURSE_IN_CHARGE":"张晓","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"周涛","DOCTOR_NAME":null,"MEAL":null,"ALLERGY":null,"ADDRESS":"郑州市小赵砦生活小区","BALANCE":1253.82,"PHONE":null,"BLOOD_TYPE":null,"MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":"0","CURRENT_TEMP":"36.8","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"58岁"},{"PATIENT_ID":"1122104","VISIT_ID":"1","INP_NO":"170585","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"崔记胜","SEX":"男","BED_NO":28,"BED_LABEL":"28","DATE_OF_BIRTH":"1967-10-15 00:00:00","NURSE_LEVEL":"3","NURSE_LEVEL_NAME":"三级护理","STATUS":"3","STATUS_NAME":"一般","CHARGE_TYPE":"自费","ADMISSION_DATE":"2017-10-07 15:35:31","DEPTED_TIME":"2017-10-07 15:51:03","DIAGNOSIS":"手指折断","NURSE_IN_CHARGE":"穆东","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"周涛","DOCTOR_NAME":null,"MEAL":null,"ALLERGY":null,"ADDRESS":"民权县北关镇东村六组","BALANCE":88.07,"PHONE":null,"BLOOD_TYPE":null,"MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":"0","CURRENT_TEMP":"36.8","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"49岁"},{"PATIENT_ID":"1011954","VISIT_ID":"2","INP_NO":"168720","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"董超","SEX":"男","BED_NO":29,"BED_LABEL":"29","DATE_OF_BIRTH":"1988-07-12 00:00:00","NURSE_LEVEL":"0","NURSE_LEVEL_NAME":"特级护理","STATUS":"1","STATUS_NAME":"病危","CHARGE_TYPE":"市医保","ADMISSION_DATE":"2017-11-11 00:34:02","DEPTED_TIME":"2017-11-11 00:39:04","DIAGNOSIS":"疼痛明显，活动时感疼痛加重","NURSE_IN_CHARGE":"张晓","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"于振声","DOCTOR_NAME":null,"MEAL":null,"ALLERGY":null,"ADDRESS":"铁英街14号院","BALANCE":-3667.64,"PHONE":null,"BLOOD_TYPE":null,"MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":false,"CURRENT_TEMP":"手术","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"29岁"},{"PATIENT_ID":"806923","VISIT_ID":"2","INP_NO":"157963","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"宁资明","SEX":"男","BED_NO":30,"BED_LABEL":"30","DATE_OF_BIRTH":"1959-12-02 00:00:00","NURSE_LEVEL":"3","NURSE_LEVEL_NAME":"三级护理","STATUS":"3","STATUS_NAME":"一般","CHARGE_TYPE":"铁路医保","ADMISSION_DATE":"2017-11-11 18:05:15","DEPTED_TIME":"2017-11-11 18:13:16","DIAGNOSIS":"尺骨鹰嘴骨折","NURSE_IN_CHARGE":"穆东","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"张博","DOCTOR_NAME":null,"MEAL":null,"ALLERGY":null,"ADDRESS":"郑州市勤劳街1号楼","BALANCE":-3121.49,"PHONE":null,"BLOOD_TYPE":null,"MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":true,"CURRENT_TEMP":"36.8","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"57岁"},{"PATIENT_ID":"1022685","VISIT_ID":"2","INP_NO":"161537","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"杨雷生","SEX":"男","BED_NO":31,"BED_LABEL":"+31","DATE_OF_BIRTH":"1926-04-07 00:00:00","NURSE_LEVEL":"2","NURSE_LEVEL_NAME":"二级护理","STATUS":"3","STATUS_NAME":"一般","CHARGE_TYPE":"铁路医保","ADMISSION_DATE":"2017-11-23 09:00:00","DEPTED_TIME":"2017-11-23 20:37:47","DIAGNOSIS":"多发性骨关节损伤","NURSE_IN_CHARGE":"赵玲","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"吴巍","DOCTOR_NAME":null,"MEAL":null,"ALLERGY":null,"ADDRESS":"郑州市西中和路6号楼7号","BALANCE":-7659.48,"PHONE":null,"BLOOD_TYPE":null,"MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":true,"CURRENT_TEMP":"","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"91岁"},{"PATIENT_ID":"1123927","VISIT_ID":"1","INP_NO":"170986","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"刘免","SEX":"女","BED_NO":32,"BED_LABEL":"32","DATE_OF_BIRTH":"1957-10-19 00:00:00","NURSE_LEVEL":"3","NURSE_LEVEL_NAME":"三级护理","STATUS":"1","STATUS_NAME":"病危","CHARGE_TYPE":"非直补","ADMISSION_DATE":"2017-07-14 11:20:16","DEPTED_TIME":"2017-07-03 11:20:16","DIAGNOSIS":"肩胛骨骨折 ","NURSE_IN_CHARGE":"张晓","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"于振声","DOCTOR_NAME":null,"MEAL":"忌辛辣","ALLERGY":"花粉","ADDRESS":"河南省汝南县留盆镇","BALANCE":920.51,"PHONE":null,"BLOOD_TYPE":null,"MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":false,"CURRENT_TEMP":"36.8","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":'true',"AGE":"59岁"},{"PATIENT_ID":"098554","VISIT_ID":"1","INP_NO":"106874","WARD_CODE":"032503","WARD_NAME":"骨科护理单元","DEPT_CODE":"032503","DEPT_NAME":"骨科护理单元","PATIENT_NAME":"王克珍","SEX":"女","BED_NO":33,"BED_LABEL":"+33","DATE_OF_BIRTH":"1958-10-26 00:00:00","NURSE_LEVEL":"3","NURSE_LEVEL_NAME":"三级护理","STATUS":"3","STATUS_NAME":"一般","CHARGE_TYPE":"省医保","ADMISSION_DATE":"2017-11-23 09:00:00","DEPTED_TIME":"2017-11-23 16:37:50","DIAGNOSIS":"脂肪栓塞综合征","NURSE_IN_CHARGE":"赵玲","NURSE_NAME":null,"DOCTOR_IN_CHARGE":"秦耀","DOCTOR_NAME":null,"MEAL":null,"ALLERGY":'1',"ADDRESS":"河南省郑州市二七区郑大东生活区","BALANCE":-4325.75,"PHONE":null,"BLOOD_TYPE":null,"MOTHER_NAME":null,"FATHER_NAME":null,"MAM_PATIENT_ID":null,"MAM_VISIT_ID":null,"MAM_WARD_CODE":null,"MAM_WARD_NAME":null,"DELIVERY_TYPE":null,"LEAVE_TIME":"2017-12-18 21:20:35","FLAG":"在院","ISALLERGY":false,"CURRENT_TEMP":"36.8","MY_DATE_TIME":null,"ISOPERATION":"0","OPS_FLAG":null,"ISADMISSION":null,"ISTRANSFER":null,"ISBARTHEL":null,"ISBRADEN":null,"ISAUTAR":null,"AGE":"59岁"}];
+        var sheet1 = new GC.Spread.Sheets.Worksheet('自定义格式');
+        sheet1.setDataSource(patlist);
+        spread.addSheet(1,sheet1);
+        var ComboBoxCelltype = new GC.Spread.Sheets.CellTypes.ComboBox();
+        ComboBoxCelltype.items(["男","女"]);
+        var colInfos = [
+   { name: 'PATIENT_ID', displayName: '病人ID', size: 70, visible: false },
+   { name: 'VISIT_ID', displayName: '访问次数', size: 70, visible: false },
+   { name: 'INP_NO', displayName: '住院号', size: 80 , visible: false},
+   { name: 'WARD_CODE', displayName: '科室号', size: 50,  visible: false,resizable: false },
+   { name: 'WARD_NAME', displayName: '科室名', size: 120 , visible: false},
+   { name: 'PATIENT_NAME', displayName: '姓名', size: 60 },
+   { name: 'SEX', displayName: '性别', cellType: ComboBoxCelltype,size: 40 },
+   { name: 'DATE_OF_BIRTH', displayName: '出生日期', formatter:'yyyy/m/d',size: 130 },
+   { name: 'CHARGE_TYPE', displayName: '医保类型', size: 120 , visible: false},
+   { name: 'ADDRESS', displayName: '家庭住址', size: 190 , visible: false},
+   { name: 'AGE', displayName: '年龄', size: 120 , visible: false},
+   { name: 'LEAVE_TIME', displayName: '出院时间', size: 150 ,visible: false},
+   { name: 'NURSE_IN_CHARGE', displayName: '责任护士', size: 120 , visible: false},
+   { name: 'BALANCE', displayName: '余额', size: 100 },
+   { name: 'DIAGNOSIS', displayName: '诊断', size: 160  },
+   { name: 'ISALLERGY', displayName: '过敏史',cellType: new GC.Spread.Sheets.CellTypes.CheckBox(),  size: 100 },
+   { name: 'CURRENT_TEMP', displayName: '当前体温', size: 60 },  ];
+    sheet1.bindColumns(colInfos);
+   
+function CustomNumberFormat() {
+    console.log('1');
+}
+
+CustomNumberFormat.prototype = new GC.Spread.Formatter.FormatterBase();
+
+CustomNumberFormat.prototype.format = function (obj, formattedData) {
+    console.log('2');
+    if (typeof obj === "number") {
+        return formatNumber(obj, formattedData);
+    } else if (typeof obj === "string") {
+        if ($.isNumeric(obj)) {
+            return formatNumber(parseFloat(obj), formattedData);
+        }
+    }
+
+    return obj ? obj.toString() : "";
+};
+
+function formatNumber(value, formattedData) {
+    console.log('3');
+    if (isFinite(value) && formattedData) {
+        if (value >= 1000) {
+            formattedData.conditionalForeColor = "green";
+        } else if (value < 1000 && value > 0) {
+            formattedData.conditionalForeColor = "gold";
+        } else {
+            formattedData.conditionalForeColor = "red";
+        }
+    } else if (formattedData) {
+        formattedData.conditionalForeColor = "red";
+    }
+    return value.toString();
+}
+
+CustomNumberFormat.prototype.parse = function (str) {
+    return new GC.Spread.Formatter.GeneralFormatter().parse(str);
+};
+sheet1.getRange(0,0,15,15).formatter(new CustomNumberFormat());
+
+/*-------------------帐单格式----------------------------*/
+var sheet2 = new GC.Spread.Sheets.Worksheet('帐单格式');
+        spread.addSheet(2,sheet2);
+
+        sheet2.suspendPaint();
+        sheet2.setColumnWidth(0, 150);
+        sheet2.setColumnWidth(1, 200);
+        sheet2.setColumnWidth(2, 150);
+        sheet2.setColumnWidth(3, 150);
+        sheet2.getRange(-1, 1, 200, 1).hAlign(1); // 水平对齐
+
+    //set standard accounting formatter
+    initStandardAccountingFormat(sheet2);
+    //set repeat chartacters formatter
+    initRepeatCharacters(sheet2);  
+    //set placeholder formatter
+    initPlaceholder(sheet2);
+    //set text formatter
+    initText(sheet2);
+    //set thousands separator formatter
+    thousandsSeparator(sheet2);
+    // set percentages formatter
+    initPercentages(sheet2);
+    //set digital placeholder formatter
+    initDigitalPlaceholder(sheet2);
+
+    sheet2.resumePaint();
+    
+function inintHeaderStyle(sheet, rowIndex) {
+    sheet.setRowHeight(rowIndex, 30);
+    sheet.addSpan(rowIndex, 0, 1, 3);
+    sheet.getRange(rowIndex, 0, 1, 3).backColor('grey').foreColor('white').vAlign(1);//垂直居中
+}
+
+function initStandardAccountingFormat(sheet) {
+    inintHeaderStyle(sheet, 1);
+    sheet.setValue(1, 0, '标准会计专用格式:  _(¥* #,##0.00_);_(¥* (#,##0.00);_(¥* "-"??_);_(@_)');
+    sheet.setValue(2, 0, '原值');
+    sheet.setValue(3, 0, 12);
+    sheet.setValue(4, 0, -12);
+    sheet.setValue(5, 0, 0);
+    sheet.setValue(6, 0, 'Text');
+    sheet.setValue(2, 2, '设置格式后结果');
+    sheet.getRange(3, 2, 4, 1).formatter('_($* #,##0.000_);_(¥* (#,##0.000);_(¥* "-"??_);_(@_)');
+    sheet.setValue(3, 2, 12);
+    sheet.setValue(4, 2, -12);
+    sheet.setValue(5, 2, 0);
+    sheet.setValue(6, 2, 'Text');
+}
+
+function initRepeatCharacters(sheet) {
+    var rowIndex = 8;
+    inintHeaderStyle(sheet, rowIndex);
+    sheet.setValue(rowIndex, 0, '重复字符 :  *');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, '原值');
+    sheet.setValue(rowIndex, 1, '格式');
+    sheet.setValue(rowIndex, 2, '设置格式后结果');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 'Sign');
+    sheet.setValue(rowIndex, 1, '@*.');
+    sheet.setValue(rowIndex, 2, 'Sign');
+    sheet.setFormatter(rowIndex, 2, '@*.');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 'Sign');
+    sheet.setValue(rowIndex, 1, '*.@');
+    sheet.setValue(rowIndex, 2, 'Sign');
+    sheet.setFormatter(rowIndex, 2, '*.@');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 12.34);
+    sheet.setValue(rowIndex, 1, '$* #.##');
+    sheet.setValue(rowIndex, 2, 12.34);
+    sheet.setFormatter(rowIndex, 2, '$* #.##');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 12.34);
+    sheet.setValue(rowIndex, 1, '$#.##*_');
+    sheet.setValue(rowIndex, 2, 12.34);
+    sheet.setFormatter(rowIndex, 2, '$#.##*_');
+}
+
+function initPlaceholder(sheet) {
+    var rowIndex = 15;
+    inintHeaderStyle(sheet, rowIndex);
+    sheet.setValue(rowIndex, 0, "增加空格 :  _");
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, '原值');
+    sheet.setValue(rowIndex, 1, '格式');
+    sheet.setValue(rowIndex, 2, '设置格式后结果');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 'Sign');
+    sheet.setValue(rowIndex, 1, '_W@');
+    sheet.setValue(rowIndex, 2, 'Sign');
+    sheet.setFormatter(rowIndex, 2, '_W@');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 'Sign');
+    sheet.setValue(rowIndex, 1, '_.@');
+    sheet.setValue(rowIndex, 2, 'Sign');
+    sheet.setFormatter(rowIndex, 2, '_.@');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 12);
+    sheet.setValue(rowIndex, 1, '#_W');
+    sheet.setValue(rowIndex, 2, 12);
+    sheet.setFormatter(rowIndex, 2, '#_W');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 12);
+    sheet.setValue(rowIndex, 1, '#_.');
+    sheet.setValue(rowIndex, 2, 12);
+    sheet.setFormatter(rowIndex, 2, '#_.');
+}
+
+function initText(sheet) {
+    var rowIndex = 22;
+    inintHeaderStyle(sheet, rowIndex);
+    sheet.setValue(rowIndex, 0, "加标签 :  \"\"& \\");
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, '原值');
+    sheet.setValue(rowIndex, 1, '格式');
+    sheet.setValue(rowIndex, 2, '设置格式后结果');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 15);
+    sheet.setValue(rowIndex, 1, '#,##0 "Km"');
+    sheet.setValue(rowIndex, 2, 15);
+    sheet.setFormatter(rowIndex, 2, '#,##0 "Km"');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 2573);
+    sheet.setValue(rowIndex, 1, '#,##0 "Over";#,##0 "Under"');
+    sheet.setValue(rowIndex, 2, 2573);
+    sheet.setFormatter(rowIndex, 2, '#,##0 "Over";#,##0 "Under"');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, -2573);
+    sheet.setValue(rowIndex, 1, '#,##0 "Over";#,##0 "Under"');
+    sheet.setValue(rowIndex, 2, -2573);
+    sheet.setFormatter(rowIndex, 2, '#,##0 "Over";#,##0 "Under"');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 'ExcelRocks');
+    sheet.setValue(rowIndex, 1, '\\a@');
+    sheet.setValue(rowIndex, 2, 'ExcelRocks');
+    sheet.setFormatter(rowIndex, 2, '\\a@');
+}
+
+function thousandsSeparator(sheet) {
+    var rowIndex = 29;
+    inintHeaderStyle(sheet, rowIndex);
+    sheet.setValue(rowIndex, 0, '千分符 : ,');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, '原值');
+    sheet.setValue(rowIndex, 1, '格式');
+    sheet.setValue(rowIndex, 2, '设置格式后结果');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 12000);
+    sheet.setValue(rowIndex, 1, '#,###');
+    sheet.setValue(rowIndex, 2, 12000);
+    sheet.setFormatter(rowIndex, 2, '#,###');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 12000000);
+    sheet.setValue(rowIndex, 1, '#,###');
+    sheet.setValue(rowIndex, 2, 12000000);
+    sheet.setFormatter(rowIndex, 2, '#,###');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 12000);
+    sheet.setValue(rowIndex, 1, '#,');
+    sheet.setValue(rowIndex, 2, 12000);
+    sheet.setFormatter(rowIndex, 2, '#,');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 12000000);
+    sheet.setValue(rowIndex, 1, '#,,');
+    sheet.setValue(rowIndex, 2, 12000000);
+    sheet.setFormatter(rowIndex, 2, '#,,');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 12000);
+    sheet.setValue(rowIndex, 1, '#,\\K');
+    sheet.setValue(rowIndex, 2, 12000);
+    sheet.setFormatter(rowIndex, 2, '#,\\K');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 12000000);
+    sheet.setValue(rowIndex, 1, '#,###,\\K');
+    sheet.setValue(rowIndex, 2, 12000000);
+    sheet.setFormatter(rowIndex, 2, '#,###,\\K');
+}
+
+function initPercentages(sheet) {
+    var rowIndex = 38;
+    inintHeaderStyle(sheet, rowIndex);
+    sheet.setValue(rowIndex, 0, '百分比 : %');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, '原值');
+    sheet.setValue(rowIndex, 1, '格式');
+    sheet.setValue(rowIndex, 2, '设置格式后结果');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 0.09);
+    sheet.setValue(rowIndex, 1, '0%');
+    sheet.setValue(rowIndex, 2, 0.09);
+    sheet.setFormatter(rowIndex, 2, '0%');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 0.952);
+    sheet.setValue(rowIndex, 1, '0.0%');
+    sheet.setValue(rowIndex, 2, 0.952);
+    sheet.setFormatter(rowIndex, 2, '0.0%');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 1);
+    sheet.setValue(rowIndex, 1, '#%');
+    sheet.setValue(rowIndex, 2, 1);
+    sheet.setFormatter(rowIndex, 2, '#%');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 1);
+    sheet.setValue(rowIndex, 1, '#%%');
+    sheet.setValue(rowIndex, 2, 1);
+    sheet.setFormatter(rowIndex, 2, '#%%');
+}
+
+function initDigitalPlaceholder(sheet) {
+    var rowIndex = 45;
+    inintHeaderStyle(sheet, rowIndex);
+    sheet.setValue(rowIndex, 0, '数字占位 : #, 0 and ?');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, '原值');
+    sheet.setValue(rowIndex, 1, '格式');
+    sheet.setValue(rowIndex, 2, '设置格式后结果');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 123.456);
+    sheet.setValue(rowIndex, 1, '#.####');
+    sheet.setValue(rowIndex, 2, 123.456);
+    sheet.setFormatter(rowIndex, 2, '#.####');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 123.456);
+    sheet.setValue(rowIndex, 1, '0.0000');
+    sheet.setValue(rowIndex, 2, 123.456);
+    sheet.setFormatter(rowIndex, 2, '0.0000');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 123.456);
+    sheet.setValue(rowIndex, 1, '?.????');
+    sheet.setValue(rowIndex, 2, 123.456);
+    sheet.setFormatter(rowIndex, 2, '?.????');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 123.456);
+    sheet.setValue(rowIndex, 1, '####.###');
+    sheet.setValue(rowIndex, 2, 123.456);
+    sheet.setFormatter(rowIndex, 2, '#####.###');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 123.456);
+    sheet.setValue(rowIndex, 1, '0000.000');
+    sheet.setValue(rowIndex, 2, 123.456);
+    sheet.setFormatter(rowIndex, 2, '0000.000');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 123.456);
+    sheet.setValue(rowIndex, 1, '????.???');
+    sheet.setValue(rowIndex, 2, 123.456);
+    sheet.setFormatter(rowIndex, 2, '????.???');
+    rowIndex++;
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 1.1);
+    sheet.setValue(rowIndex, 1, '#.???');
+    sheet.setValue(rowIndex, 2, 1.1);
+    sheet.setFormatter(rowIndex, 2, '#.???');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 11.12);
+    sheet.setValue(rowIndex, 1, '#.???');
+    sheet.setValue(rowIndex, 2, 11.12);
+    sheet.setFormatter(rowIndex, 2, '#.???');
+    rowIndex++;
+    sheet.setValue(rowIndex, 0, 111.123);
+    sheet.setValue(rowIndex, 1, '#.???');
+    sheet.setValue(rowIndex, 2, 111.123);
+    sheet.setFormatter(rowIndex, 2, '#.???');
+}
+});
+
+</script>
+
+</html>
